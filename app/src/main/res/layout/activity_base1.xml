@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/backgraund_black"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="right|center"
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:layout_height="?android:actionBarSize">
+
+        <TextView
+            android:id="@+id/title_name"
+            android:text="Ob-havo"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+        <ImageView
+            android:id="@+id/search_location"
+            android:layout_marginRight="24dp"
+            android:layout_gravity="right|center"
+            android:src="@drawable/ic_baseline_search_24"
+            android:layout_width="50dp"
+            android:layout_height="20dp"/>
+
+        <ImageView
+            android:id="@+id/button_setting"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_baseline_more_vert_24"
+            android:layout_width="22dp"
+            android:layout_height="22dp"/>
+
+    </LinearLayout>
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
