@@ -123,9 +123,9 @@ class WeatherFragment :Fragment(R.layout.fragment_weather){
         binding.mainHumidity.text=dailyInfo?.get(0)?.humidity.toString()+"%"
         binding.windSpeed.text=dailyInfo?.get(0)?.windSpeed.toString()+" m/s"
         binding.mainDescription.text=dailyInfo?.get(0)?.weather?.get(0)?.description
-        binding.mainTempMax.text="max:  "+(dailyInfo?.get(0)?.temp?.max?.toInt()) +"°"
+        binding.mainTempMax.text="maks:  "+(dailyInfo?.get(0)?.temp?.max?.toInt()) +"°"
         binding.mainTempMin.text="min:  "+(dailyInfo?.get(0)?.temp?.min?.toInt()) +"°"
-        binding.mainTempCurrent.text="curr:  "+(data.current.temp.toInt())+"°"
+        binding.mainTempCurrent.text="hozr:  "+(data.current.temp.toInt())+"°"
         binding.mainSunRise.text=convertDateToUnderstandable(dailyInfo[0].sunrise).subSequence(0,5)
         binding.mainSunSet.text=convertDateToUnderstandable(dailyInfo[0].sunset).subSequence(0,5)
 

@@ -38,6 +38,7 @@
         <ImageView
             android:id="@+id/button_setting"
             android:layout_gravity="right|center"
+            android:visibility="gone"
             android:layout_marginRight="8dp"
             android:src="@drawable/ic_baseline_more_vert_24"
             android:layout_width="22dp"

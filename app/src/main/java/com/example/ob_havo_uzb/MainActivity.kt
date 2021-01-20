@@ -109,9 +109,8 @@ class MainActivity : AppCompatActivity() {
         val listItems = data.map { it.name }
 
         // setup the alert builder
-        val builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this,R.style.MyDialogTheme)
         builder.setTitle("Shahar tanlang!")
-
 
         var checkedItem = cityId
         builder.setSingleChoiceItems(listItems.toTypedArray(), checkedItem) { dialog, which  ->
@@ -129,9 +128,11 @@ class MainActivity : AppCompatActivity() {
             EventBus.getDefault().post(GeoCodesModel(cityName,data[cityId].lat,data[cityId].lon) )
             dialog.dismiss()
         }
-        builder.setNegativeButton("Cancel"){dialog, which -> dialog.dismiss()}
         val dialog = builder.create()
         dialog.show()
+        dialog.window!!.setLayout(540,740)
+
+
     }
 
     private fun openDialogForDayNightMode(){
