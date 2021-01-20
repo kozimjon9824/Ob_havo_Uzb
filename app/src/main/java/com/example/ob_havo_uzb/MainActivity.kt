@@ -8,10 +8,10 @@ import android.location.Address
 import android.location.Geocoder
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -20,6 +20,7 @@ import com.example.ob_havo_uzb.databinding.ActivityBase1Binding
 import com.example.ob_havo_uzb.model.GeoCodesModel
 import com.example.ob_havo_uzb.ui.WeatherFragment
 import com.example.ob_havo_uzb.util.GpsTracker
+import com.example.ob_havo_uzb.util.MyPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -45,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityBase1Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         getLocation()
 
         if (this.isOnline()){
@@ -53,9 +53,9 @@ class MainActivity : AppCompatActivity() {
          }else{
             Toast.makeText(this,"Internetni yoqing!",Toast.LENGTH_SHORT).show()
         }
-        fullData()
+
+        loadData()
         binding.searchLocation.setOnClickListener {
-            //fullData()
             openDialog()
         }
 
@@ -76,7 +76,11 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
+
     }
+
+
+
     private fun startFragment(){
         val bundle = bundleOf("LAT" to lat, "LON" to lon, "NAME" to cityName)
         supportFragmentManager.commit {
@@ -85,17 +89,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-    private fun loadSharedPref(){
-
-        pref=getSharedPreferences("WEATHER", Context.MODE_PRIVATE)
-
-        lat=pref.getFloat("LAT",lat)
-        lon=pref.getFloat("LON",lon)
-        cityName= pref.getString("CITY",cityName).toString()
-
-    }
-
 
     private fun getLocation() {
         gps = GpsTracker(this@MainActivity)
@@ -141,18 +134,52 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    private fun openDialogForDayNightMode(){
+        val builder=AlertDialog.Builder(this)
+        builder.setTitle("mode tanlang")
+        val checkedItem = MyPreferences(this).darkMode
+        builder.setSingleChoiceItems(arrayOf("Light","Night"),checkedItem){dialog, which ->
+            when (which) {
+                0 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    MyPreferences(this).darkMode = 0
+                    delegate.applyDayNight()
+                    dialog.dismiss()
+                }
+                1 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    MyPreferences(this).darkMode = 1
+                    delegate.applyDayNight()
 
-    private fun saveForSharedPref(){
-        val edit=pref.edit()
-        edit.clear()
-        edit.putString("CITY",cityName)
-        edit.putFloat("LAT",data[cityId].lat.toFloat())
-        edit.putFloat("LON",data[cityId].lon.toFloat())
-        edit.apply()
+                    dialog.dismiss()
+                }
+        }}
+
+        builder.setPositiveButton("OK"){
+            dialog, which ->
+
+            dialog.dismiss()
+        }
+        val dialog=builder.create()
+        dialog.show()
     }
 
 
-    private fun fullData(){
+    private fun checkTheme() {
+        when (MyPreferences(this).darkMode) {
+            0 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                delegate.applyDayNight()
+            }
+            1 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                delegate.applyDayNight()
+            }
+        }
+    }
+
+
+    private fun loadData(){
         data=ArrayList()
         data.add(GeoCodesModel(	"Tashkent", 41.26465, 69.21627))
         data.add(GeoCodesModel(	"Tashkent vil", 41.166666 ,69.749997))

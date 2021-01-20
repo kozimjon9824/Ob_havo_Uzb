@@ -4,8 +4,8 @@
     <item>
         <shape android:innerRadius="16dp">
             <corners android:radius="16dp"/>
-            <gradient android:startColor="#374755" android:endColor="#73889B" android:angle="360"/>
-            <stroke android:color="#fff" android:width="0.4dp"/>
+            <solid android:color="#000"/>
+            <stroke android:color="#fff" android:width="0.2dp"/>
 
 
         </shape>
