@@ -3,6 +3,7 @@ package com.example.ob_havo_uzb.ui
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,7 @@ class WeatherFragment :Fragment(R.layout.fragment_weather){
     private var lon = 69.21627F
     private var cityName="Tashkent"
 
+    private val TAG="AA"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,6 +78,9 @@ class WeatherFragment :Fragment(R.layout.fragment_weather){
 
         viewModel.getData(lat = lat,lon = lon).observe(viewLifecycleOwner){
             if (it.status== Resource.Status.SUCCESS){
+                Log.d(TAG, "getDataFromServer: ${it.data?.lat}")
+                Log.d(TAG, "getDataFromServer: ${it.data?.lon}")
+
                 val mainData=it.data
                 mainData?.let { it1 -> loadDataToViews( it1) }
                 showOrHideProgress(false)
