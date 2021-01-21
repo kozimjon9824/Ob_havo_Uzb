@@ -9,15 +9,23 @@ apply plugin: 'com.android.application'
 
 
 android {
+    signingConfigs {
+        config {
+            storeFile file('G:\\Portfolio_APP\\uzb_weather_release.jks')
+            storePassword 'kozimjon77'
+            keyAlias 'load'
+            keyPassword 'kozimjon77'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.ob_havo_uzb"
+        applicationId "com.uzbsoft.ob_havo_uzb"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -29,7 +37,9 @@ android {
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
+
     }
 
     buildFeatures{

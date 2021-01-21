@@ -11,6 +11,11 @@
 
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/myColor</item>
+        <item name="android:background">#252323</item>
+        <item name="itemTextColor">#fff</item>
+        <item name="strokeColor">#fff</item>
+        <item name="dialogCornerRadius">20dp</item>
+        <item name="textColorAlertDialogListItem">#fff</item>
+        <item name="android:textColor">#fff</item>
     </style>
 </resources>
